@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+
+Widget defaultTextField({
+  required TextEditingController controller,
+  required TextInputType type,
+  required String label,
+  String? hintText,
+  IconData? prefix,
+  IconData? suffix,
+  Function? suffixPressed,
+  String? Function(String?)? validate, // تعديل الـ Validator ليكون متوافق مع TextFormField
+  Function(String)? onSubmit,
+  Function(String)? onChange,
+  VoidCallback? onTap, // الـ Tap يفضل يكون VoidCallback
+  bool isPassword = false,
+  bool isEnabled = true,
+  Color? textColor,
+  Color? hintColor,
+}) => TextFormField(
+  controller: controller,
+  keyboardType: type,
+  obscureText: isPassword,
+  enabled: isEnabled,
+  style: TextStyle(color: textColor ?? Colors.black), // لون الخط
+  onFieldSubmitted: onSubmit,
+  onChanged: onChange,
+  onTap: onTap,
+  validator: validate,
+  decoration: InputDecoration(
+    labelText: label,
+    hintText: hintText,
+    hintStyle: TextStyle(color: hintColor ?? Colors.grey),
+    prefixIcon: prefix != null ? Icon(prefix) : null,
+    suffixIcon: suffix != null 
+        ? IconButton(
+            onPressed: () => suffixPressed?.call(), 
+            icon: Icon(suffix),
+          ) 
+        : null,
+    border: const OutlineInputBorder(),
+  ),
+);

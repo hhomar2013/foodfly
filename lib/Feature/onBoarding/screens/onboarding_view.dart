@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodfly/Core/Constants/color_management.dart';
+import 'package:foodfly/Feature/authentication/login/presentation/screen/login_screen.dart';
 import 'package:foodfly/Feature/onBoarding/cubit/onboarding_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
@@ -43,7 +44,7 @@ class OnboardingView extends StatelessWidget {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: AssetImage(
-                                          'assets/images/Foodfly.gif',
+                                          'assets/images/Foodfly2.gif',
                                         ),
                                       ),
                                     ),
@@ -107,7 +108,11 @@ class OnboardingView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            cubit.currentIndex == cubit.pages.length - 1
+                                ? cubit.goToLoginScreen(context)
+                                : cubit.changePage(cubit.currentIndex + 1);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorManagement.orange,
                             foregroundColor: Colors.white,
@@ -115,15 +120,15 @@ class OnboardingView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: Text("Next"),
+                          child: cubit.currentIndex == cubit.pages.length - 1
+                              ? Text("Get Started")
+                              : Text("Next"),
                         ),
                       ),
                     ),
                     Center(
                       child: TextButton(
-                        onPressed: () =>
-                        cubit.changePage(cubit.pages.length -1),
-
+                        onPressed: () => cubit.goToLoginScreen(context),
                         child: Text(
                           'Skip',
                           style: TextStyle(
