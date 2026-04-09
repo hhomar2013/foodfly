@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodfly/Core/Constants/color_management.dart';
 import 'package:foodfly/Core/Network/locale/shared_prefrence.dart';
+import 'package:foodfly/Core/util/size_config.dart';
 import 'package:foodfly/Feature/authentication/login/presentation/screen/login_screen.dart';
 import 'package:foodfly/Feature/onBoarding/screens/onboarding_screen.dart';
 
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: ColorManagement.white,
       body: Center(child: Image.asset('assets/images/Foodfly1.gif')),

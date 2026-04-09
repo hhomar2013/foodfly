@@ -128,3 +128,44 @@ void navigateAndFinish(context, widget) => Navigator.pushReplacement(
   context,
   MaterialPageRoute(builder: (context) => widget),
 );
+
+Future defaultShowDialog({
+  required BuildContext context,
+  String title = 'Delete Item',
+  String content = 'Are you sure you want to delete this item?',
+  required Function() onDelete,
+}) =>
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(.7),
+      builder: (context) => AlertDialog(
+        backgroundColor: ColorManagement.darkGray,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        content: Text(
+          content,
+          style: const TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel',
+                style: TextStyle(color: ColorManagement.orangeAccent)),
+          ),
+          TextButton(
+            onPressed: () {
+              onDelete();
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Delete',
+              style: TextStyle(color: ColorManagement.red, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
