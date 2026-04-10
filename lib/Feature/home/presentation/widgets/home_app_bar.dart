@@ -11,7 +11,6 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
@@ -25,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  icon: const Icon(Iconsax.clock, color: Colors.black),
+                  icon: const Icon(Iconsax.map, color: Colors.black),
                 );
               },
             ),
@@ -65,14 +64,13 @@ class HomeAppBar extends StatelessWidget {
               return Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                      color: ColorManagement.darkBlue,
-                      shape: BoxShape.circle,
-                    ),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: ColorManagement.darkBlue,
                     child: IconButton(
-                      onPressed: () => {navigateTo(context, const CartScreen())},
+                      onPressed: () => {
+                        navigateTo(context, const CartScreen()),
+                      },
                       icon: Icon(
                         Iconsax.shopping_bag,
                         color: Colors.white,
