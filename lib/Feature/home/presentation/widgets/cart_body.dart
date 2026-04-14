@@ -32,7 +32,7 @@ class CartBody extends StatelessWidget {
                     child: buildCartList(cubit.cartItems, cubit),
                 ),
               ),
-             buildCartbottom(cubit)
+             buildCartBottom(cubit)
             ],
           ),
         );

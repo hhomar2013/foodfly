@@ -6,6 +6,7 @@ import 'package:foodfly/Core/util/size_config.dart';
 import 'package:foodfly/Feature/home/logic/cubit/cart_cubit.dart';
 import 'package:foodfly/Feature/home/presentation/screens/cart_screen.dart';
 import 'package:foodfly/Feature/home/presentation/widgets/home_app_bar.dart';
+import 'package:foodfly/Feature/home/presentation/widgets/offer_widget.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
@@ -28,6 +29,7 @@ class HomeV1Screen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 HomeAppBar(),
                 const SizedBox(height: 20),
 
@@ -96,49 +98,82 @@ class HomeV1Screen extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.defaultSize * 5,
                   child: GridView.builder(
+                    padding: EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 0.72,
                     ),
-                    itemCount: 10,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: ColorManagement.yellow,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              blurRadius: 10,
-                            ),
-                          ],
+                    itemCount: CartCubit.get(context).cartItems.length,
+                    itemBuilder: (context, index) {
+                      final product = CartCubit.get(context).cartItems[index];
+                      return Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(15),
                                 ),
                                 child: Image.asset(
-                                  'assets/images/Foodfly.png',
-                                  height: SizeConfig.defaultSize * 1,
+                                  'assets/images/Foodfly3.png',
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                           defaultLabel(text: 'Pizza',fontSize: 16,color: ColorManagement.darkBlue, fontWeight: FontWeight.bold),
-                             // defaultLabel(text: 'info',fontSize: 12,color: ColorManagement.gray, fontWeight: FontWeight.normal),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                              child: Text(
+                                product.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                                  child: Text(
+                                    "${product.price} \$",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    navigateTo(context, const CartScreen());
+                                  },
+                                  icon: const Icon(
+                                    Iconsax.shopping_bag,
+                                    color: Colors.orange,
+                                    size: 28,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      ),
-                    ),
+                      );
+                    }
                   ),
                 ),
+
               ],
             ),
           ),

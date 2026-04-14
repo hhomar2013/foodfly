@@ -4,9 +4,9 @@ import 'package:foodfly/Core/components/components.dart';
 import 'package:foodfly/Core/util/size_config.dart';
 import 'package:foodfly/Feature/home/logic/cubit/cart_cubit.dart';
 
-Widget buildCartbottom(CartCubit cubit){
+Widget buildCartBottom(CartCubit cubit){
   return  Positioned(
-    top: SizeConfig.defaultSize * 5.5,
+    top: SizeConfig.defaultSize * 5,
     bottom: 0,
     right: 0,
     left: 0,
